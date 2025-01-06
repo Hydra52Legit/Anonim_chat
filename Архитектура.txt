@@ -1,0 +1,20 @@
+anonymous-chat-bot/
+│
+├── src/
+│   ├── bot/
+│   │   ├── handlers/
+│   │   │   ├── adminHandler.js
+│   │   │   ├── startHandler.js
+│   │   │   └── findHandler.js
+│   │   ├── middlewares/
+│   │   │   └── checkSubscription.js
+│   │   ├── services/
+│   │   │   └── broadcastService.js
+│   │   └── index.js
+│   ├── db/
+│   │   ├── db.js            # Подключение и управление SQLite
+│   │   └── queries.js       # SQL-запросы
+│   └── index.js
+├── .env
+├── package.json
+└── README.md
