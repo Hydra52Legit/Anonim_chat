@@ -1,4 +1,5 @@
 const { getRequiredChannels } = require('../../db/queries');
+const { Markup } = require('telegraf');
 
 const checkSub = async (ctx, next) => {
     try {
@@ -16,18 +17,9 @@ const checkSub = async (ctx, next) => {
                 if (!['member', 'administrator', 'creator'].includes(chatMember.status)) {
                     return ctx.reply(
                         `Наш бот бесплатный, но вы должны подписаться на @${channel.channel_name}, чтобы продолжить.`,
-                        {
-                            reply_markup: {
-                                inline_keyboard: [
-                                    [
-                                        {
-                                            text: `Перейти в @${channel.channel_name}`,
-                                            url: `https://t.me/${channel.channel_name}`,
-                                        },
-                                    ],
-                                ],
-                            },
-                        }
+                        Markup.inlineKeyboard([
+                            Markup.button.url(`Перейти в @${channel.channel_name}`, `https://t.me/${channel.channel_name}`)
+                        ])
                     );
                 }
             } catch (error) {
@@ -35,18 +27,9 @@ const checkSub = async (ctx, next) => {
                 // Обрабатываем ошибки, если не удается проверить подписку на канал
                 return ctx.reply(
                     `Не удалось проверить вашу подписку на @${channel.channel_name}. Пожалуйста, подпишитесь и попробуйте снова.`,
-                    {
-                        reply_markup: {
-                            inline_keyboard: [
-                                [
-                                    {
-                                        text: `Перейти в @${channel.channel_name}`,
-                                        url: `https://t.me/${channel.channel_name}`,
-                                    },
-                                ],
-                            ],
-                        },
-                    }
+                    Markup.inlineKeyboard([
+                        Markup.button.url(`Перейти в @${channel.channel_name}`, `https://t.me/${channel.channel_name}`)
+                    ])
                 );
             }
         }
